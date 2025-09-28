@@ -2,12 +2,12 @@
 Eisodos FW PDO:SQL Server Database Connector
 
 ## Prerequisites
-- PHP 8.x
+- PHP 8.4
   - Tested with PHP 8.4
 - MS ODBC SQL 17 driver 
 - Installed ext-pdo, ext-pdo_sqlsrv
 - Eisodos framework
-  - Minimum version 1.0.16
+  - Minimum version 1.1.0
 
 ## Installation
 Installation via composer:
