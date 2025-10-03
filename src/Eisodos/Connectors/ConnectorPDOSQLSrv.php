@@ -31,6 +31,9 @@
    * connectSQL=list of query run after connection separated by ;
    */
   class ConnectorPDOSQLSrv implements DBConnectorInterface {
+  
+    /** @var string DB Syntax */
+    private string $_dbSyntax='sqlsrv';
     
     /** @var PDO null */
     private PDO $connection;
@@ -64,7 +67,7 @@
         $databaseConfig = array_change_key_case(Eisodos::$configLoader->importConfigSection($databaseConfigSection_, '', false));
         
         $connectString = Eisodos::$utils->safe_array_value($databaseConfig, 'driver', 'sqlsrv') .
-          (strpos(Eisodos::$utils->safe_array_value($databaseConfig, 'driver', 'sqlsrv'), ':') === false ? ':' : '');
+          (!str_contains(Eisodos::$utils->safe_array_value($databaseConfig, 'driver', 'sqlsrv'), ':') ? ':' : '');
         $connectParameters = [
           PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -662,6 +665,13 @@ var_dump($out); // works
      */
     public function defaultStrParam(string $parameterName_, $isString_ = true, $maxLength_ = 0, $exception_ = '', $withComma_ = false): string {
       return $this->emptySQLField(Eisodos::$parameterHandler->getParam($parameterName_), $isString_, $maxLength_, $exception_, $withComma_, 'DEFAULT');
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function DBSyntax(): string {
+      return $this->_dbSyntax;
     }
     
   }
