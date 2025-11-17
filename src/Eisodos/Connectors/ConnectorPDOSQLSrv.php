@@ -622,7 +622,7 @@ var_dump($out); // works
      * @inheritDoc
      */
     public function emptySQLField($value_, $isString_ = true, $maxLength_ = 0, $exception_ = "", $withComma_ = false, $keyword_ = "NULL"): string {
-      if ($value_ === '') {
+      if ($value_ === '' || $value_ === null) {
         if ($withComma_) {
           return "NULL, ";
         }
