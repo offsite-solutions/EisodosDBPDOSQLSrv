@@ -2,10 +2,12 @@
 Eisodos FW PDO:SQL Server Database Connector
 
 ## Prerequisites
-- PHP 8.4
-  - Tested with PHP 8.4
-- MS ODBC SQL 17 driver 
-- Installed ext-pdo, ext-pdo_sqlsrv
+- PHP 8.4+
+  - Tested with PHP 8.5
+- MS ODBC Driver 18 for SQL Server
+  - Driver 18 encrypts connections by default. Either use a certificate the client
+    trusts, or set `TrustServerCertificate=1` (or `Encrypt=no`) in **Options** below.
+- Installed ext-pdo, ext-pdo_sqlsrv (5.13.x)
 - Eisodos framework
   - Minimum version 1.1.0
 
@@ -58,6 +60,11 @@ Set auto commit, values are **true, false(default)**
 List of available options: https://learn.microsoft.com/en-us/sql/connect/php/connection-options?view=sql-server-ver17
 
 Example: **TrustServerCertificate=1;Authentication=SqlPassword**
+
+With ODBC Driver 18 the connection is encrypted unless told otherwise, so one of
+`TrustServerCertificate=1` or `Encrypt=no` is required against a server with a
+self-signed certificate — omitting both fails the connection rather than falling
+back to plaintext as Driver 17 did.
 
 ### ConnectSQL
 Series of SQLs which will be executed right after successful connection.

@@ -2,3 +2,6 @@
 /vendor
 /composer.lock
 /tests/logs/
+
+# codebase-memory-mcp local cache
+.codebase-memory/
